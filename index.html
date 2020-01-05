@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="print">
+      <h1>header</h1>
+      <img
+        src="http://img4.imgtn.bdimg.com/it/u=2791812286,3018040522&fm=26&gp=0.jpg"
+      />
+      <p>
+        anvas2Image.saveAsImage(canvasObj, width, height, type)
+        Canvas2Image.saveAsPNG(canvasObj, width, height)
+        Canvas2Image.saveAsJPEG(canvasObj, width, height)
+        Canvas2Image.saveAsGIF(canvasObj, width, height)
+        Canvas2Image.saveAsBMP(canvasObj, width, height)
+        Canvas2Image.convertToImage(canvasObj, width, height, type)
+        Canvas2Image.convertToPNG(canvasObj, width, height)
+        Canvas2Image.convertToJPEG(canvasObj, width, height)
+        Canvas2Image.convertToGIF(canvasObj, width, height)
+      </p>
+    </div>
+    <script type="text/javascript" src="html2canvas.js"></script>
+    <script>
+      const dom = document.querySelector(".print");
+
+      function htmltoImg(dom) {
+        // 解决图片跨域的问题
+        const pic = document.querySelectorAll("img");
+        pic.forEach(img => {
+          img.setAttribute("crossOrigin", "Anonymous");
+        });
+        html2canvas(dom, {
+          width: 800,
+          height: 800,
+          useCORS: true
+        }).then(canvas => {
+          // canvas宽度
+          const canvasWidth = canvas.width / 2;
+          // canvas高度
+          const canvasHeight = canvas.height / 2;
+          const dataUrl = canvas.toDataURL();
+          const image = document.createElement("img");
+          image.width = canvasWidth;
+          image.height = canvasHeight;
+          image.src = dataUrl;
+
+          dom.appendChild(image);
+          dom.appendChild(canvas);
+        });
+      }
+      htmltoImg(dom);
+    </script>
+  </body>
+</html>
